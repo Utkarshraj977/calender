@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+  /* PARENT: Required for 3D depth on desktop */
+  .perspective-1000 {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  /* Creates the lined notebook paper effect */
+  .ruled-paper {
+    background-image: linear-gradient(transparent, transparent 27px, #cbd5e1 27px, #cbd5e1 28px);
+    background-size: 100% 28px;
+    line-height: 28px;
+  }
+  
+  /* Dark mode lines */
+  .dark .ruled-paper {
+    background-image: linear-gradient(transparent, transparent 27px, #4b5563 27px, #4b5563 28px);
+  }
+
+  /* =========================================
+     3D PAGE FLIP ANIMATION (Desktop Fix)
+     ========================================= */
+  .animate-3d-flip {
+    animation: flip3D 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden; /* Forces GPU acceleration */
+    transform: translateZ(0); 
+  }
+
+  @keyframes flip3D {
+    0% { transform: rotateX(0deg); opacity: 1; }
+    50% { transform: rotateX(-90deg); opacity: 0.2; }
+    50.01% { transform: rotateX(90deg); opacity: 0.2; }
+    100% { transform: rotateX(0deg); opacity: 1; }
+  }
+
+  /* =========================================
+     HORIZONTAL SWIPE ANIMATIONS
+     ========================================= */
+  .animate-swipe-left {
+    animation: swipeLeft 0.4s ease-in-out;
+  }
+  .animate-swipe-right {
+    animation: swipeRight 0.4s ease-in-out;
+  }
+
+  @keyframes swipeLeft {
+    0% { transform: translateX(0); opacity: 1; }
+    49% { transform: translateX(-40px); opacity: 0; }
+    50% { transform: translateX(40px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+  
+  @keyframes swipeRight {
+    0% { transform: translateX(0); opacity: 1; }
+    49% { transform: translateX(40px); opacity: 0; }
+    50% { transform: translateX(-40px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+}
